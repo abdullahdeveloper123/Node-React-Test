@@ -1,13 +1,14 @@
 // Import core dependencies
 const express = require('express');
-const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const parser = require('body-parser');
 require('dotenv').config();
 
 // Import route modules
-const authRoute = require('./routes/authRoutes');
-const homeRoutes = require('./routes/homeRoutes');
+const authRoute = require('./controllers/auth/_routes');
+const meetingRoutes = require('./controllers/meeting/_routes');
+
+
 
 // Initialize Express app and server port
 const app = express();
@@ -19,7 +20,8 @@ app.use(parser.json());
 
 // Building Base Urls
 app.use('/api', authRoute);
-app.use('/api', homeRoutes);
+app.use('/api', meetingRoutes);
+
 
 // Stating Server
 const server = app.listen(port, () => {
