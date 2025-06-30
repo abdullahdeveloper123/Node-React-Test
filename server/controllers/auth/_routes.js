@@ -1,6 +1,6 @@
 // Import core dependencies
 const express = require('express');
-const { login } = require('../controllers/auth/authController');
+const { login } = require('./authController');
 
 const router = express.Router();
 

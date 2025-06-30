@@ -15,7 +15,7 @@ const login = (req, res) => {
     console.log(token);
     return res.send(token);
   }
-  return res.status(401).json({ message: "Invalid credentials" });
+  return res.status(401).json({ message: "Incorrect email or password!" });
 };
 
 

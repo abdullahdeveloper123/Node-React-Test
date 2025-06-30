@@ -12,7 +12,7 @@ const meetingRoutes = require('./controllers/meeting/_routes');
 
 // Initialize Express app and server port
 const app = express();
-const port = 3000;
+const port = 8000;
 
 // Apply global middlewares
 app.use(cors());
