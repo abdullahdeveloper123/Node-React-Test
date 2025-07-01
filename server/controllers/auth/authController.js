@@ -8,7 +8,7 @@ const user = {
 };
 
 // Temporary in-memory store for refresh tokens
-const refreshTokens = [];
+const refreshTokens = ['eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTc1MTM3MDkyNiwiZXhwIjoxNzUxOTc1NzI2fQ.UxUJXWFOkqaGTD_tPyzJV1W7-ME_AcFhEiN0tfyXM2o'];
 
 /**
  * Login Controller — handles authentication & token generation
@@ -61,9 +61,17 @@ const refreshAccessToken = (req, res) => {
   });
 };
 
+// Check token validation for protected client view
+const verifyAccessToken = (req,res)=>{
+  return res.status(200).json({
+    message: 'Token is valid',
+  });
+}
+
 // Export controllers and refresh token store
 module.exports = {
   login,
   refreshAccessToken,
-  refreshTokens
+  refreshTokens,
+  verifyAccessToken
 };

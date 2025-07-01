@@ -1,9 +1,9 @@
-// Import required dependencies and components
+// Import core React dependencies and router/link functionality
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// Import necessary icons from FontAwesome
+// Import FontAwesome and necessary icons for navigation UI
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarCheck,
   faList,
@@ -14,15 +14,16 @@ import {
 
 /**
  * Navbar Component
- * Renders a responsive navigation bar with logo, navigation links, and a mobile menu toggle
+ * Renders a responsive, clean navigation bar with app branding,
+ * primary navigation links, and a mobile-friendly menu toggle.
  */
 function Navbar() {
-  // State to track whether mobile menu is open or closed
+  // State to control the visibility of the mobile navigation menu
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <nav className="navbar">
-      {/* Logo Section */}
+      {/* App logo and brand link */}
       <Link to="/" className="logo">
         <FontAwesomeIcon icon={faCalendarCheck} /> Meetings App
       </Link>
@@ -36,9 +37,9 @@ function Navbar() {
         <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} />
       </button>
 
-      {/* Navigation Links */}
+      {/* Navigation links section — toggles active class on mobile */}
       <div className={`nav-links ${menuOpen ? "active" : ""}`}>
-        <Link to="/meetings">
+        <Link to="/">
           <FontAwesomeIcon icon={faList} /> Meetings
         </Link>
         <Link to="/add-meeting">
@@ -49,5 +50,5 @@ function Navbar() {
   );
 }
 
-// Export Navbar component as default
+// Export Navbar component as default export
 export default Navbar;

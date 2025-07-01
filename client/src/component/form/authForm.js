@@ -3,24 +3,27 @@ import { useState } from "react";
 import { loginUser } from "../../api/auth/authApi";
 import '../../assets/main.css';
 
-// Import FontAwesome icons for form UI
+// Import FontAwesome icons for input fields
 import { faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**
  * LoginForm Component
- * Handles user authentication form UI and submission logic
+ * Displays a login form with email and password fields.
+ * Handles user authentication via API, token storage, error handling,
+ * and optional redirect or callback via `onSuccess` prop.
  */
 export function LoginForm({ onSuccess }) {
 
-  // State variables for form fields and error message
+  // State variables for form input fields and error message
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   /**
    * Form submission handler
-   * Calls loginUser API, stores token on success, and triggers onSuccess callback
+   * Sends login credentials to API, stores token on success,
+   * triggers `onSuccess()` callback, and handles errors gracefully.
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,31 +32,32 @@ export function LoginForm({ onSuccess }) {
       // Call login API with provided credentials
       const token = await loginUser(email, password);
 
-      // Store access token in local storage
+      // Save access token to local storage for session persistence
       localStorage.setItem("accessToken", token);
 
-      // Clear any existing error message
+      // Clear any previous error messages
       setError("");
 
+      // Invoke callback on successful login
       onSuccess();
 
     } catch (err) {
-      // display error message
-       if (err.message === "Network Error") {
-      setError("Unable to connect to the server. Please try again later.");
-    } else if (err.response?.status === 401) {
-      setError("Invalid email or password. Please check your credentials.");
-    } else {
-      setError("Something went wrong. Please try again.");
-    }
+      // User-friendly error handling based on error type
+      if (err.message === "Network Error") {
+        setError("Unable to connect to the server. Please try again later.");
+      } else if (err.response?.status === 401) {
+        setError("Invalid email or password. Please check your credentials.");
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
     }
   };
 
-  // Render the login form UI
+  // Return JSX for login form UI
   return (
     <form onSubmit={handleSubmit}>
-    
-      {/* Email Input */}
+      
+      {/* Email Input Field */}
       <div className="form-group">
         <FontAwesomeIcon icon={faEnvelope} className="form-icon" />
         <input
@@ -67,7 +71,7 @@ export function LoginForm({ onSuccess }) {
         />
       </div>
 
-      {/* Password Input */}
+      {/* Password Input Field */}
       <div className="form-group">
         <FontAwesomeIcon icon={faLock} className="form-icon" />
         <input
@@ -86,11 +90,11 @@ export function LoginForm({ onSuccess }) {
         Login
       </button>
 
-      {/* Error Message */}
+      {/* Error Message Feedback */}
       {error && <div className="form-error">{error}</div>}
     </form>
   );
 }
 
-// Export LoginForm component as default
+// Export LoginForm component as default export
 export default LoginForm;

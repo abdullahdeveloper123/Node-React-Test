@@ -6,30 +6,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**
  * LoginPage View Component
- * Renders the login page layout including a Navbar, heading, and login form.
+ * Renders the login screen layout, combining a navigation bar, page heading,
+ * and a login form. Designed for user authentication.
  */
 const LoginPage = () => {
   return (
     <>
-      {/* Navbar Component */}
+      {/* Top Navigation Bar */}
       <Navbar />
 
-      {/* Page Content */}
+      {/* Main page content area */}
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="bg-white p-8 rounded shadow w-full max-w-sm">
-          {/* Page Heading */}
+          
+          {/* Page Heading with icon */}
           <h2 className="text-3xl font-bold mb-6 text-center text-blue-600 flex items-center justify-center gap-2">
             <FontAwesomeIcon icon={faUser} />
             Login
           </h2>
 
-          {/* Login Form Component */}
-          <LoginForm onSuccess={() => window.location.replace("/meetings")} />
+          {/* Login form component */}
+          <LoginForm onSuccess={() => window.location.replace("/")} />
         </div>
       </div>
     </>
   );
 };
 
-// Export LoginPage component as default
+// Export component as default export
 export default LoginPage;

@@ -1,30 +1,32 @@
-// Import the main application routes
-import AppRoutes from './route/auth/authRoute';
+// Import necessary dependencies
 import { useEffect } from 'react';
 import { refreshAccessToken } from './api/auth/refreshAccessToken';
+import Routes from './routes/Routes';
 
 /**
  * Root App Component
- * Renders the main application by injecting route-based views through AppRoutes.
+ * Bootstraps the main application by rendering route-based views via Routes component.
+ * Also triggers periodic access token refresh to keep user sessions alive.
  */
 function App() {
 
-  // Request to endpoint to refresh access token before expiry 
+  // Refresh access token every 14 minutes to maintain authenticated session
   useEffect(() => {
     const interval = setInterval(() => {
       refreshAccessToken();
-    }, 14 * 60 * 1000); // every 14 minutes
+    }, 12 * 60 * 1000); // 12 minutes
 
+    // Clear interval when component unmounts to prevent memory leaks
     return () => clearInterval(interval);
   }, []);
 
   return (
     <>
-      {/* Application Routes */}
-      <AppRoutes />
+      {/* Render application routes */}
+      <Routes />
     </>
   );
 }
 
-// Export the App component as default
+// Export App component as default
 export default App;

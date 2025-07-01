@@ -32,7 +32,7 @@ const createMeeting = (req, res) => {
     saveMeetings(meetings)
 
     return res.status(200).json({ message: "Meeting saved successfully", meeting: meetingData });
-};
+}; 
 
 
 /**
@@ -50,29 +50,6 @@ const readMeetings = (req, res) => {
     return res.status(200).json(allMeetings);
 }
 
-
-
-/**
- * Retrieve a single meeting by ID
- */
-const readMeetingByID = (req, res) => {
-
-    const id = req.params.id;
-    const allMeetings = getMeetings()
-
-    // Check if allMeetings is not empty
-    if (allMeetings.length === 0) {
-        return res.status(404).send({ message: "No Meetings Found" })
-    }
-
-    // finds specific object with ID
-    const meeting = allMeetings.find(arr => arr.id === parseInt(id))
-    if (!meeting) {
-        return res.status(200).send({ message: "Requested Meeting Not Found" })
-    }
-
-    return res.status(200).json(meeting)
-}
 
 /**
  * Update a meeting by ID
@@ -93,7 +70,7 @@ const updateMeeting = (req, res) => {
     }
 
     // Getting requested meeting with ID
-    const meeting = allMeetings.find(arr => arr.id === parseInt(id))
+    const meeting = allMeetings.find(arr => arr.id == parseInt(id))
     if (!meeting) {
         return res.status(404).json({ message: "Requested Meeting not Found!" })
     }
@@ -125,7 +102,7 @@ const deleteMeeting = (req, res) => {
 
     // Getting Request ID from url and Finding Index of object with same ID in array
     const id = parseInt(req.params.id)
-    const meetingIndex = allMeetings.findIndex(arr => arr.id === parseInt(id))
+    const meetingIndex = allMeetings.findIndex(arr => arr.id == parseInt(id))
 
     // Break function if requested meeting is not found
     if (meetingIndex === -1) {
@@ -143,4 +120,4 @@ const deleteMeeting = (req, res) => {
 
 
 
-module.exports = { createMeeting, readMeetings, readMeetingByID, updateMeeting, deleteMeeting }
+module.exports = { createMeeting, readMeetings, updateMeeting, deleteMeeting }
