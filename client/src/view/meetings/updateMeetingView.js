@@ -1,9 +1,9 @@
 // Import core dependencies and components
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getMeetings } from "../api/meeting/allMeetings";
-import UpdateMeetingForm from "../component/form/updateMeetingForm";
-import Navbar from "../component/navbar/Navbar";
+import { getMeetings } from "../../api/meeting/allMeetings";
+import UpdateMeetingForm from "../../component/form/updateMeetingForm";
+import Navbar from "../../component/navbar/Navbar";
 
 /**
  * UpdateMeetingView Component

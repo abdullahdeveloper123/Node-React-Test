@@ -33,7 +33,7 @@ export function LoginForm({ onSuccess }) {
       const token = await loginUser(email, password);
 
       // Save access token to local storage for session persistence
-      localStorage.setItem("accessToken", token);
+      localStorage.setItem("accessToken", token.token);
 
       // Clear any previous error messages
       setError("");

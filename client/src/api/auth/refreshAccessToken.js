@@ -17,12 +17,13 @@ export const refreshAccessToken = async () => {
     // Send POST request to refresh access token
     const response = await axios.post(`${Api_Url}/refresh-token`, { refreshToken });
 
-    // Extract new access token from response
-    const { accessToken } = response.data;
-
     // Replace old access token in localStorage
     localStorage.removeItem('accessToken');
-    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('accessToken', response.data.accessToken);
+    
+    // Replace old refresh TOken and new form response
+    localStorage.removeItem('refreshToken')
+    localStorage.setItem('refreshToken', response.data.refreshToken)
 
   } catch (error) {
     // Log token refresh failure

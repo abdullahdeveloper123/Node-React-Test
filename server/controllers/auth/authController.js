@@ -1,5 +1,6 @@
-// Import core dependencies
+// Import dependencies
 const jwt = require('jsonwebtoken');
+const { ensureDataFile, getTokens, saveTokens } = require('../../services/auth/refreshTokenStore')
 
 // Hard-coded user as per test requirement
 const user = {
@@ -8,7 +9,7 @@ const user = {
 };
 
 // Temporary in-memory store for refresh tokens
-const refreshTokens = ['eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTc1MTM3MDkyNiwiZXhwIjoxNzUxOTc1NzI2fQ.UxUJXWFOkqaGTD_tPyzJV1W7-ME_AcFhEiN0tfyXM2o'];
+const refreshTokens = [];
 
 /**
  * Login Controller — handles authentication & token generation
@@ -25,6 +26,10 @@ const login = (req, res) => {
 
     // Store the refresh token in memory
     refreshTokens.push(refreshToken);
+
+    // create file not exists and save token in file
+    ensureDataFile()
+    saveTokens(refreshTokens)
 
     return res.status(200).json({ token, refreshToken });
   }
@@ -43,8 +48,10 @@ const refreshAccessToken = (req, res) => {
     return res.status(401).json({ message: "Refresh token required." });
   }
 
+  const storedTokens = getTokens();
+
   // Validate that refresh token exists in store
-  if (!refreshTokens.includes(refreshToken)) {
+  if (!storedTokens.includes(refreshToken)) {
     return res.status(403).json({ message: "Invalid or unknown refresh token." });
   }
 
@@ -54,15 +61,38 @@ const refreshAccessToken = (req, res) => {
       return res.status(403).json({ message: "Invalid or expired refresh token." });
     }
 
-    // Issue new access token (valid for 15 minutes)
-    const newAccessToken = jwt.sign({ email: decoded.email }, process.env.SECRET_KEY, { expiresIn: "15m" });
+    // Remove used refresh token
+    const updatedTokens = storedTokens.filter((t) => t !== refreshToken);
 
-    return res.status(200).json({ accessToken: newAccessToken });
+    // Issue new access token (15m)
+    const newAccessToken = jwt.sign(
+      { email: decoded.email },
+      process.env.SECRET_KEY,
+      { expiresIn: "15m" }
+    );
+
+    // Issue new refresh token (7d)
+    const newRefreshToken = jwt.sign(
+      { email: decoded.email },
+      process.env.REFRESH_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    // Add new refresh token to store and save
+    updatedTokens.push(newRefreshToken);
+    saveTokens(updatedTokens);
+
+    // Send both tokens
+    return res.status(200).json({
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken
+    });
   });
 };
 
+
 // Check token validation for protected client view
-const verifyAccessToken = (req,res)=>{
+const verifyAccessToken = (req, res) => {
   return res.status(200).json({
     message: 'Token is valid',
   });
@@ -72,6 +102,5 @@ const verifyAccessToken = (req,res)=>{
 module.exports = {
   login,
   refreshAccessToken,
-  refreshTokens,
   verifyAccessToken
 };

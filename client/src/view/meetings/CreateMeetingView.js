@@ -1,6 +1,6 @@
 import React from "react";
-import CreateMeeting from "../component/form/createMeetingForm";
-import Navbar from "../component/navbar/Navbar";
+import CreateMeeting from "../../component/form/createMeetingForm";
+import Navbar from "../../component/navbar/Navbar";
 
 /**
  * CreateMeetingView Component

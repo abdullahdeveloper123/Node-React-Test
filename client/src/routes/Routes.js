@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
 
-import AllMeetingsView from "../view/AllMeetingsView";
-import CreateMeetingView from "../view/CreateMeetingView";
-import UpdateMeetingView from '../view/updateMeetingView'
-import LoginPage from '../view/LoginPage'
+import AllMeetingsView from "../view/meetings/AllMeetingsView";
+import CreateMeetingView from "../view/meetings/CreateMeetingView";
+import UpdateMeetingView from '../view/meetings/updateMeetingView'
+import LoginPage from '../view/auth/LoginPage'
 import ProtectedRoute from "./ProtectedRoute";
 
 function MeetingRoutes() {

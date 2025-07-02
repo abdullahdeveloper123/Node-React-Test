@@ -1,5 +1,5 @@
 // Import core dependancies
-const { ensureDataFile, saveMeetings, getMeetings } = require('../../services/dataStore');
+const { ensureDataFile, saveMeetings, getMeetings } = require('../../services/meetings/dataStore');
 
 /**
  * For this test scenario, the data size is expected to be small.
@@ -24,8 +24,9 @@ const createMeeting = (req, res) => {
 
     // check last object's ID in allMeetings array and add up 1 to make new object's ID
     const meetings = getMeetings()
-    const id = meetings.length > 0 ? meetings[meetings.length - 1].id + 1 : 0;
-    const meetingData = { id, title, date };
+    const id = meetings.length > 0 ? parseInt(meetings[meetings.length - 1].id) + 1 : 1;
+    const timeStamp = new Date().toISOString()
+    const meetingData = { id, title, date, timeStamp };
 
     // Add new meeting to array and save updated data back to file
     meetings.push(meetingData)

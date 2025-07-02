@@ -1,6 +1,6 @@
 // Import required dependencies and components
-import LoginForm from "../component/form/authForm";
-import Navbar from "../component/navbar/Navbar";
+import LoginForm from "../../component/form/authForm";
+import Navbar from "../../component/navbar/Navbar";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

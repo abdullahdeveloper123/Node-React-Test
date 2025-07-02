@@ -31,7 +31,7 @@ export const loginUser = async (email, password) => {
     localStorage.setItem("refreshToken", response.data.refreshToken);
 
     // Return access token to caller
-    return response.data.token;
+    return response.data;
 
   } catch (error) {
     // Propagate any errors to caller for UI handling

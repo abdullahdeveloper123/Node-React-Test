@@ -4,6 +4,15 @@ import "../../assets/main.css";
 // Import React Router hook for programmatic navigation
 import { useNavigate } from "react-router-dom";
 
+// Import core dependancy
+import { formatDistanceToNow } from 'date-fns';
+
+
+// Import icons library 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeading, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+
+
 /**
  * MeetingCard Component
  * Displays individual meeting details inside a card layout.
@@ -15,18 +24,24 @@ import { useNavigate } from "react-router-dom";
  * - meetingDate: Date of the meeting
  * - onDelete: Function to handle 'Delete' button click
  */
-const MeetingCard = ({ meetingId, meetingTitle, meetingDate, onOpen, onEdit, onDelete }) => {
+const MeetingCard = ({ meetingId, meetingTitle, meetingDate, timeStamp, onDelete }) => {
   const navigate = useNavigate();
 
   return (
     <div className="card-container">
       {/* Card Header with meeting title */}
       <div className="card-header">
-        <h2 className="card-title">{meetingTitle}</h2>
+        <h2 className="card-title"><FontAwesomeIcon icon={faHeading} className="mr-2 text-gray-600" />
+          {meetingTitle}</h2>
+          
+        <p className="created-time">
+          Created {formatDistanceToNow(new Date(timeStamp))} ago
+        </p>
       </div>
 
       {/* Display meeting date */}
-      <p className="card-date">{meetingDate}</p>
+      <p className="card-date"><FontAwesomeIcon icon={faCalendarAlt} className="mr-2 text-gray-600" />
+        {meetingDate}</p>
 
       {/* Action Buttons: Open, Update, Delete */}
       <div className="card-actions">
