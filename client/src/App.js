@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       refreshAccessToken();
-    }, 12 * 60 * 10); // 12 minutes
+    }, 12 * 60 * 1000); // 12 minutes
 
     // Clear interval when component unmounts to prevent memory leaks
     return () => clearInterval(interval);
