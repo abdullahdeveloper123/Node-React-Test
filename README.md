@@ -1,15 +1,16 @@
-# 📁 React & Node.js Skill Test — Meetings App
+# 📁 React & Node.js Practice Project - Meetings App
 
 Hey there! 👋
-This is my completed submission for the React & Node.js coding test.
-I took the basic CRUD + auth spec you gave — and made sure to structure it cleanly, follow good practices, and keep the code readable, scalable, and easy to maintain.
+This is a **practice project**, not a test submission. I built it to demonstrate my ability to create **clean**, **scalable**, and **maintainable** full-stack applications using React, Node.js, and JWT-based authentication.
+
+It’s designed to showcase real-world coding patterns, folder structure, and token-based auth — while also keeping things simple and readable.
 
 ---
 
 ## ✅ Features Covered
 
 * **Authentication (Sign In)**
-  Using hardcoded credentials as instructed:
+  Using hardcoded credentials for demo:
 
   ```
   Email: admin@gmail.com
@@ -55,13 +56,13 @@ Cleanly separated frontend & backend logic for clarity:
   └── index.js
 ```
 
-* **/client/component/** → React components (Navbar, MeetingCard, etc.)
-* **/client/views/** → React pages (SignInView, AllMeetingsView, etc.)
-* **/client/api/** → All client-side API service calls
-* **/server/routes/** → All Express route handlers
-* **/server/controllers/** → Logic for each API endpoint
-* **/server/middleware/** → Auth checkers (access & refresh)
-* **/server/data/** → JSON file storing refresh tokens
+**/client/component/** → React components (Navbar, MeetingCard, etc.)
+**/client/views/** → React pages (SignInView, AllMeetingsView, etc.)
+**/client/api/** → All client-side API service calls
+**/server/routes/** → All Express route handlers
+**/server/controllers/** → Logic for each API endpoint
+**/server/middleware/** → Auth checkers (access & refresh)
+**/server/data/** → JSON file storing refresh tokens
 
 ---
 
@@ -95,7 +96,7 @@ REFRESH_SECRET=your_refresh_secret
 
 ```
 cd server && npm run dev
-cd client && npm run start
+cd client && npm start
 ```
 
 5. Log in with the test credentials and you're good to go!
@@ -107,7 +108,7 @@ cd client && npm run start
 App is built cleanly following React & Node.js best practices.
 Code is structured for maintainability and clarity, with small UX touches like time-ago timestamps, token auto-refreshing, and pagination controls to improve usability.
 
-Appreciate the chance to work on this — it was fun putting it together 💪
+It’s a **practice project** to demonstrate technical skills — not tied to any company or test.
 
 ---
 
